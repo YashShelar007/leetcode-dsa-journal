@@ -31,7 +31,7 @@ def plot_chart(counts):
     plt.xlabel("Problems Solved")
     plt.title("Problems Solved per Category")
     plt.tight_layout()
-    plt.savefig("chart.png")
+    plt.savefig("docs/chart.png")
 
 if __name__ == "__main__":
     counts = count_problems_per_category()
