@@ -32,4 +32,4 @@ jobs:
           git add README.md
           git commit -m "Auto-update README with latest problem progress" || echo "No changes to commit"
           git remote set-url origin https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}
-          git push origin HEAD:main
+          git push https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }} HEAD:main
