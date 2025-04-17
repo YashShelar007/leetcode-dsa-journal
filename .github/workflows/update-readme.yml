@@ -6,11 +6,15 @@ on:
       - '**.py'
       - 'update_readme.py'
       - 'README.md'
+
   workflow_dispatch:
 
 jobs:
   update-readme:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write  # ✅ THIS IS CRUCIAL
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -24,12 +28,9 @@ jobs:
         run: python update_readme.py
 
       - name: Commit and push if changed
-        env:
-          GH_TOKEN: ${{ secrets.GH_PAT }}
         run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add README.md
           git commit -m "Auto-update README with latest problem progress" || echo "No changes to commit"
-          git remote set-url origin https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}
-          git push https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }} HEAD:main
+          git push
