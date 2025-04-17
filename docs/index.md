@@ -8,7 +8,7 @@ This site documents my journey solving 2 LeetCode problems every day.
 
 See my full progress on [GitHub](https://github.com/YashShelar007/leetcode-dsa-journal#-daily-progress).
 
-![chart](../chart.png)
+![Problems per Category](../chart.png)
 
 ---
 
