@@ -9,6 +9,9 @@ This repository tracks my daily progress solving LeetCode problems. I aim to sol
 | Day | Problems Solved | Category |
 |-----|------------------|----------|
 <!-- AUTO-GENERATED-TABLE-START -->
+| Day | Problems Solved | Category |
+|-----|------------------|----------|
+| Day 1 | [Group Anagrams](arrays_hashing/group_anagrams.py), [Two Sum](arrays_hashing/two_sum.py) | Arrays & Hashing |
 <!-- AUTO-GENERATED-TABLE-END -->
 
 ---
