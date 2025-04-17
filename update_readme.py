@@ -53,9 +53,11 @@ def update_readme():
 
     start = "<!-- AUTO-GENERATED-TABLE-START -->"
     end = "<!-- AUTO-GENERATED-TABLE-END -->"
+    
+    before = content.split(start)[0]
+    after = content.split(end)[1] if end in content else ""
     updated_content = f"{start}\n{table}{end}"
-
-    new_readme = content.split(start)[0] + updated_content + content.split(end)[1]
+    new_readme = before + updated_content + after
 
     with open("README.md", "w") as f:
         f.write(new_readme)
