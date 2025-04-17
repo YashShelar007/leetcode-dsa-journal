@@ -14,6 +14,10 @@ This repository tracks my daily progress solving LeetCode problems. I aim to sol
 
 ---
 
+## 📊 Problems per Category
+
+![chart](chart.png)
+
 ## 📁 Folder Structure
 
 ```

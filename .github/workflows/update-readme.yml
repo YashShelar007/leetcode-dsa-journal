@@ -26,6 +26,9 @@ jobs:
 
       - name: Run update_readme.py
         run: python update_readme.py
+      
+      - name: Generate chart of problems per category
+        run: python generate_chart.py
 
       - name: Commit and push if changed
         run: |
