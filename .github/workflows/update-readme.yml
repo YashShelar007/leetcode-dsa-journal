@@ -27,6 +27,9 @@ jobs:
       - name: Run update_readme.py
         run: python update_readme.py
       
+      - name: Install matplotlib
+        run: pip install matplotlib
+      
       - name: Generate chart of problems per category
         run: python generate_chart.py
 
