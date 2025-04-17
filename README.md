@@ -6,8 +6,6 @@ This repository tracks my daily progress solving LeetCode problems. I aim to sol
 
 ## 📅 Daily Progress
 
-| Day | Problems Solved | Category |
-|-----|------------------|----------|
 <!-- AUTO-GENERATED-TABLE-START -->
 | Day | Problems Solved | Category |
 |-----|------------------|----------|
