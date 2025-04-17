@@ -6,6 +6,8 @@ on:
       - '**.py'
       - 'update_readme.py'
       - 'README.md'
+  
+  workflow_dispatch:
 
 jobs:
   update-readme:
