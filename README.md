@@ -11,6 +11,7 @@ This repository tracks my daily progress solving LeetCode problems. I aim to sol
 |-----|------------------|----------|
 | Day 1 | [Group Anagrams](arrays_hashing/group_anagrams.py), [Two Sum](arrays_hashing/two_sum.py) | Arrays & Hashing |
 | Day 2 | [Container With Most Water](two_pointers/container_with_most_water.py), [Valid Palindrome](two_pointers/valid_palindrome.py) | Two Pointers |
+| Day 3 | [Best Time Stock](sliding_window/best_time_stock.py), [Longest Unique Substring](sliding_window/longest_unique_substring.py) | Sliding Window |
 <!-- AUTO-GENERATED-TABLE-END -->
 
 ---
