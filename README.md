@@ -13,6 +13,7 @@ This repository tracks my daily progress solving LeetCode problems. I aim to sol
 | Day 2 | [Container With Most Water](two_pointers/container_with_most_water.py), [Valid Palindrome](two_pointers/valid_palindrome.py) | Two Pointers |
 | Day 3 | [Best Time Stock](sliding_window/best_time_stock.py), [Longest Unique Substring](sliding_window/longest_unique_substring.py) | Sliding Window |
 | Day 4 | [Binary Search](binary_search/binary_search.py), [Search 2D Matrix](binary_search/search_2d_matrix.py) | Binary Search |
+| Day 5 | [Search 2D Matrix Ii](binary_search/search_2d_matrix_ii.py) | Binary Search |
 <!-- AUTO-GENERATED-TABLE-END -->
 
 ---
