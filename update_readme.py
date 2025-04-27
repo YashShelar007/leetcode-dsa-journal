@@ -1,46 +1,47 @@
 import os
+from collections import OrderedDict
 
-# Folders to ignore when scanning for problem categories
-IGNORED_DIRS = {".github", "docs", "__pycache__",}
-
-def ensure_folder_structure():
-    """
-    Create any category folders you expect to use.
-    (You can still add new ones manually without touching this script.)
-    """
-    # If you want a template set of folders, list them here.
-    for folder in []:
-        if not os.path.exists(folder):
-            os.makedirs(folder)
+# ———— Define the exact folder order you solve in — no surprises ————
+CATEGORY_TITLES = OrderedDict([
+    ("arrays_hashing", "Arrays & Hashing"),
+    ("two_pointers",    "Two Pointers"),
+    ("sliding_window",  "Sliding Window"),
+    ("binary_search",   "Binary Search"),
+    ("matrix",          "Matrix"),             # your search-a-2d-matrix-ii folder
+    ("linked_list",     "Linked List"),
+    ("trees",           "Trees"),
+    ("graphs",          "Graphs"),
+    ("greedy",          "Greedy"),
+    ("backtracking",    "Backtracking"),
+])
 
 def collect_problems():
     """
-    Walk through each top-level directory (except IGNORED_DIRS),
-    collect all .py files, and assign a human-friendly category.
+    Walk through each category in the exact solve order,
+    collect all .py files (if any), and build (title, category, link).
     """
     repo_root = os.path.dirname(os.path.abspath(__file__))
     problems = []
 
-    for entry in sorted(os.listdir(repo_root)):
-        full_path = os.path.join(repo_root, entry)
-        if not os.path.isdir(full_path) or entry in IGNORED_DIRS:
-            continue
+    for folder, label in CATEGORY_TITLES.items():
+        folder_path = os.path.join(repo_root, folder)
+        if not os.path.isdir(folder_path):
+            continue  # you haven’t created this category yet
 
-        # Derive category name from folder, e.g. "two_pointers" → "Two Pointers"
-        category = entry.replace("_", " ").title()
+        py_files = sorted([f for f in os.listdir(folder_path) if f.endswith(".py")])
+        if not py_files:
+            continue  # you solved no problems in this category yet
 
-        # Add each Python file in this folder
-        for fname in sorted(os.listdir(full_path)):
-            if fname.endswith(".py"):
-                title = fname.replace("_", " ").replace(".py", "").title()
-                link  = f"{entry}/{fname}"
-                problems.append((title, category, link))
+        for fname in py_files:
+            title = fname.replace("_", " ").replace(".py", "").title()
+            link  = f"{folder}/{fname}"
+            problems.append((title, label, link))
 
     return problems
 
 def generate_table(problems):
     """
-    Build the Markdown table: two problems per day, in chronological order.
+    Build Markdown table two problems per day in the order they were appended.
     """
     header = "| Day | Problems Solved | Category |\n|-----|------------------|----------|\n"
     rows = []
@@ -52,7 +53,7 @@ def generate_table(problems):
         if p2:
             titles += f", [{p2[0]}]({p2[2]})"
 
-        # If both problems share a category, show it once; otherwise join with " / "
+        # merge categories for the row, or show single if same
         if p2 and p1[1] != p2[1]:
             cat = f"{p1[1]} / {p2[1]}"
         else:
@@ -64,13 +65,10 @@ def generate_table(problems):
     return header + "\n".join(rows) + "\n"
 
 def update_readme():
-    """
-    Read README.md, replace the auto-table section, and write back.
-    """
-    repo_root = os.path.dirname(os.path.abspath(__file__))
-    readme_path = os.path.join(repo_root, "README.md")
+    repo_root  = os.path.dirname(os.path.abspath(__file__))
+    readme_md  = os.path.join(repo_root, "README.md")
 
-    with open(readme_path, "r", encoding="utf-8") as f:
+    with open(readme_md, "r", encoding="utf-8") as f:
         content = f.read()
 
     problems = collect_problems()
@@ -83,12 +81,10 @@ def update_readme():
     after  = content.split(end_tag)[1] if end_tag in content else ""
 
     new_content = before + start_tag + "\n" + table_md + end_tag + after
-
-    with open(readme_path, "w", encoding="utf-8") as f:
+    with open(readme_md, "w", encoding="utf-8") as f:
         f.write(new_content)
 
     print("✅ README.md updated successfully.")
 
 if __name__ == "__main__":
-    ensure_folder_structure()
     update_readme()
