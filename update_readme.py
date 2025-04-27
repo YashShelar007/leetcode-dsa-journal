@@ -1,50 +1,46 @@
 import os
 
-# Map folder names to human-readable categories
-CATEGORY_TITLES = {
-    "arrays_hashing": "Arrays & Hashing",
-    "two_pointers": "Two Pointers",
-    "sliding_window": "Sliding Window",
-    "stack": "Stack",
-    "binary_search": "Binary Search",
-    "linked_list": "Linked List",
-    "trees": "Trees",
-    "graphs": "Graphs",
-    "greedy": "Greedy",
-    "backtracking": "Backtracking",
-}
+# Folders to ignore when scanning for problem categories
+IGNORED_DIRS = {".github", "docs", "__pycache__",}
 
 def ensure_folder_structure():
-    """Make sure each category folder exists (so chart/counts don’t break)."""
-    repo_root = os.path.dirname(os.path.abspath(__file__))
-    for folder in CATEGORY_TITLES:
-        path = os.path.join(repo_root, folder)
-        if not os.path.exists(path):
-            os.makedirs(path)
+    """
+    Create any category folders you expect to use.
+    (You can still add new ones manually without touching this script.)
+    """
+    # If you want a template set of folders, list them here.
+    for folder in []:
+        if not os.path.exists(folder):
+            os.makedirs(folder)
 
 def collect_problems():
     """
-    Walk through each known category folder and collect
-    (title, category, link) tuples for every .py file.
+    Walk through each top-level directory (except IGNORED_DIRS),
+    collect all .py files, and assign a human-friendly category.
     """
     repo_root = os.path.dirname(os.path.abspath(__file__))
     problems = []
 
-    for folder, category in CATEGORY_TITLES.items():
-        folder_path = os.path.join(repo_root, folder)
-        if os.path.isdir(folder_path):
-            for file in sorted(os.listdir(folder_path)):
-                if file.endswith(".py"):
-                    # Turn "two_sum.py" → "Two Sum"
-                    title = file.replace("_", " ").replace(".py", "").title()
-                    link = f"{folder}/{file}"
-                    problems.append((title, category, link))
+    for entry in sorted(os.listdir(repo_root)):
+        full_path = os.path.join(repo_root, entry)
+        if not os.path.isdir(full_path) or entry in IGNORED_DIRS:
+            continue
+
+        # Derive category name from folder, e.g. "two_pointers" → "Two Pointers"
+        category = entry.replace("_", " ").title()
+
+        # Add each Python file in this folder
+        for fname in sorted(os.listdir(full_path)):
+            if fname.endswith(".py"):
+                title = fname.replace("_", " ").replace(".py", "").title()
+                link  = f"{entry}/{fname}"
+                problems.append((title, category, link))
 
     return problems
 
 def generate_table(problems):
     """
-    Build the Markdown table string. Groups every two problems into one row.
+    Build the Markdown table: two problems per day, in chronological order.
     """
     header = "| Day | Problems Solved | Category |\n|-----|------------------|----------|\n"
     rows = []
@@ -56,18 +52,21 @@ def generate_table(problems):
         if p2:
             titles += f", [{p2[0]}]({p2[2]})"
 
+        # If both problems share a category, show it once; otherwise join with " / "
         if p2 and p1[1] != p2[1]:
-            category = f"{p1[1]} / {p2[1]}"
+            cat = f"{p1[1]} / {p2[1]}"
         else:
-            category = p1[1]
+            cat = p1[1]
 
         day = (i // 2) + 1
-        rows.append(f"| Day {day} | {titles} | {category} |")
+        rows.append(f"| Day {day} | {titles} | {cat} |")
 
     return header + "\n".join(rows) + "\n"
 
 def update_readme():
-    """Read README.md, replace the table, and write it back out."""
+    """
+    Read README.md, replace the auto-table section, and write back.
+    """
     repo_root = os.path.dirname(os.path.abspath(__file__))
     readme_path = os.path.join(repo_root, "README.md")
 
