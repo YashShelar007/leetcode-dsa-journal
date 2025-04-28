@@ -13,6 +13,7 @@ CATEGORY_TITLES = OrderedDict([
     ("graphs",          "Graphs"),
     ("greedy",          "Greedy"),
     ("backtracking",    "Backtracking"),
+    ("stack_queue", "Stacks & Queue")
 ])
 
 def collect_problems():
