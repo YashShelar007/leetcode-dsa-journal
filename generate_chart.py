@@ -5,7 +5,7 @@ CATEGORY_TITLES = {
     "arrays_hashing": "Arrays & Hashing",
     "two_pointers": "Two Pointers",
     "sliding_window": "Sliding Window",
-    "stack": "Stack",
+    "stack_queue": "Stacks & Queue",
     "binary_search": "Binary Search",
     "linked_list": "Linked List",
     "trees": "Trees",
