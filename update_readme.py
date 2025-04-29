@@ -1,6 +1,7 @@
 import os
 import subprocess
 import sys
+import re
 
 def get_changed_py_files() -> list[str]:
     # List .py files changed in the last commit
@@ -21,15 +22,16 @@ def derive_entry(path: str) -> tuple[str,str,str]:
     return title, category, path
 
 def compute_next_day(readme_lines: list[str]) -> int:
-    # Count existing data rows between our markers:
     start = readme_lines.index("<!-- AUTO-GENERATED-TABLE-START -->")
     end   = readme_lines.index("<!-- AUTO-GENERATED-TABLE-END -->")
-    # Rows start after the header line
-    rows = [
+
+    # Match only lines that begin with "| Day " followed by a digit (e.g., "| Day 1", "| Day 12", etc.)
+    day_rows = [
         line for line in readme_lines[start+1:end]
-        if line.strip().startswith("| Day ")
+        if re.match(r"\|\s*Day\s+\d+", line.strip())
     ]
-    return len(rows) + 1
+
+    return len(day_rows) + 1
 
 def append_row_to_readme(entries: list[tuple[str,str,str]]):
     readme_path = "README.md"
