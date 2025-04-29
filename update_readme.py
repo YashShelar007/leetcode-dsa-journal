@@ -1,91 +1,63 @@
 import os
-from collections import OrderedDict
+import subprocess
+import sys
 
-# ———— Define the exact folder order you solve in — no surprises ————
-CATEGORY_TITLES = OrderedDict([
-    ("arrays_hashing", "Arrays & Hashing"),
-    ("two_pointers",    "Two Pointers"),
-    ("sliding_window",  "Sliding Window"),
-    ("binary_search",   "Binary Search"),
-    ("matrix",          "Matrix"),             # your search-a-2d-matrix-ii folder
-    ("linked_list",     "Linked List"),
-    ("trees",           "Trees"),
-    ("graphs",          "Graphs"),
-    ("greedy",          "Greedy"),
-    ("backtracking",    "Backtracking"),
-    ("stack_queue", "Stacks & Queue")
-])
+def get_changed_py_files() -> list[str]:
+    # List .py files changed in the last commit
+    out = subprocess.check_output(
+        ["git", "diff", "--name-only", "HEAD~1", "HEAD"],
+        text=True
+    )
+    return [f.strip() for f in out.splitlines() if f.strip().endswith(".py")]
 
-def collect_problems():
+def derive_entry(path: str) -> tuple[str,str,str]:
     """
-    Walk through each category in the exact solve order,
-    collect all .py files (if any), and build (title, category, link).
+    Given "two_pointers/valid_palindrome.py" returns
+    ("Valid Palindrome", "Two Pointers", path).
     """
-    repo_root = os.path.dirname(os.path.abspath(__file__))
-    problems = []
+    folder, fname = path.split("/", 1)
+    title = fname.replace(".py", "").replace("_", " ").title()
+    category = folder.replace("_", " ").title()
+    return title, category, path
 
-    for folder, label in CATEGORY_TITLES.items():
-        folder_path = os.path.join(repo_root, folder)
-        if not os.path.isdir(folder_path):
-            continue  # you haven’t created this category yet
+def compute_next_day(readme_lines: list[str]) -> int:
+    # Count existing data rows between our markers:
+    start = readme_lines.index("<!-- AUTO-GENERATED-TABLE-START -->")
+    end   = readme_lines.index("<!-- AUTO-GENERATED-TABLE-END -->")
+    # Rows start after the header line
+    rows = [
+        line for line in readme_lines[start+1:end]
+        if line.strip().startswith("| Day ")
+    ]
+    return len(rows) + 1
 
-        py_files = sorted([f for f in os.listdir(folder_path) if f.endswith(".py")])
-        if not py_files:
-            continue  # you solved no problems in this category yet
+def append_row_to_readme(entries: list[tuple[str,str,str]]):
+    readme_path = "README.md"
+    with open(readme_path, "r", encoding="utf-8") as f:
+        lines = f.read().splitlines()
 
-        for fname in py_files:
-            title = fname.replace("_", " ").replace(".py", "").title()
-            link  = f"{folder}/{fname}"
-            problems.append((title, label, link))
+    day = compute_next_day(lines)
+    # Build the markdown row
+    titles = ", ".join(f"[{t}]({p})" for t,_,p in entries)
+    cats   = " / ".join(sorted({c for _,c,_ in entries}))
+    new_row = f"| Day {day} | {titles} | {cats} |"
 
-    return problems
+    # Insert it just before the END marker
+    out = []
+    for line in lines:
+        if line.strip() == "<!-- AUTO-GENERATED-TABLE-END -->":
+            out.append(new_row)
+        out.append(line)
 
-def generate_table(problems):
-    """
-    Build Markdown table two problems per day in the order they were appended.
-    """
-    header = "| Day | Problems Solved | Category |\n|-----|------------------|----------|\n"
-    rows = []
-    for i in range(0, len(problems), 2):
-        p1 = problems[i]
-        p2 = problems[i+1] if i+1 < len(problems) else None
-
-        titles = f"[{p1[0]}]({p1[2]})"
-        if p2:
-            titles += f", [{p2[0]}]({p2[2]})"
-
-        # merge categories for the row, or show single if same
-        if p2 and p1[1] != p2[1]:
-            cat = f"{p1[1]} / {p2[1]}"
-        else:
-            cat = p1[1]
-
-        day = (i // 2) + 1
-        rows.append(f"| Day {day} | {titles} | {cat} |")
-
-    return header + "\n".join(rows) + "\n"
-
-def update_readme():
-    repo_root  = os.path.dirname(os.path.abspath(__file__))
-    readme_md  = os.path.join(repo_root, "README.md")
-
-    with open(readme_md, "r", encoding="utf-8") as f:
-        content = f.read()
-
-    problems = collect_problems()
-    table_md = generate_table(problems)
-
-    start_tag = "<!-- AUTO-GENERATED-TABLE-START -->"
-    end_tag   = "<!-- AUTO-GENERATED-TABLE-END -->"
-
-    before = content.split(start_tag)[0]
-    after  = content.split(end_tag)[1] if end_tag in content else ""
-
-    new_content = before + start_tag + "\n" + table_md + end_tag + after
-    with open(readme_md, "w", encoding="utf-8") as f:
-        f.write(new_content)
-
-    print("✅ README.md updated successfully.")
+    with open(readme_path, "w", encoding="utf-8") as f:
+        f.write("\n".join(out) + "\n")
 
 if __name__ == "__main__":
-    update_readme()
+    changed = get_changed_py_files()
+    if not changed:
+        print("❌ No Python files changed in last commit, skipping README update.")
+        sys.exit(0)
+
+    entries = [derive_entry(p) for p in changed]
+    append_row_to_readme(entries)
+    print(f"✅ Appended Day row for {len(entries)} problem(s): {changed}")
