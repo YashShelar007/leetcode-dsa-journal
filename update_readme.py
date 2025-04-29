@@ -9,7 +9,12 @@ def get_changed_py_files() -> list[str]:
         ["git", "diff", "--name-only", "HEAD~1", "HEAD"],
         text=True
     )
-    return [f.strip() for f in out.splitlines() if f.strip().endswith(".py")]
+    # return [f.strip() for f in out.splitlines() if f.strip().endswith(".py")]
+    # Only include .py files inside a folder (i.e. "category/file.py"), not root scripts
+    return [
+        f.strip() for f in out.splitlines()
+        if f.strip().endswith(".py") and "/" in f.strip()
+    ]
 
 def derive_entry(path: str) -> tuple[str,str,str]:
     """
