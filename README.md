@@ -17,6 +17,7 @@ This repository tracks my daily progress solving LeetCode problems. I aim to sol
 | Day 6 | [Merge Two Sorted Lists](linked_list/merge_two_sorted_lists.py), [Reverse Linked List](linked_list/reverse_linked_list.py) | Linked List |
 | Day 7 | [Maximum Depth Binary Tree](trees/maximum_depth_binary_tree.py), [Same Tree](trees/same_tree.py) | Trees |
 | Day 8 | [Implement Queue Using Stacks](stack_queue/implement_queue_using_stacks.py), [Valid Parentheses](stack_queue/valid_parentheses.py) | Stacks & Queue |
+| Day 10 | [Invert Binary Tree](trees/invert_binary_tree.py), [Symmetric Tree](trees/symmetric_tree.py) | Trees |
 <!-- AUTO-GENERATED-TABLE-END -->
 
 ---
