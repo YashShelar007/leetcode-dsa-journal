@@ -15,7 +15,8 @@ This repository tracks my daily progress solving LeetCode problems. I aim to sol
 | Day 4 | [Binary Search](binary_search/binary_search.py), [Search 2D Matrix](binary_search/search_2d_matrix.py) | Binary Search |
 | Day 5 | [Search 2D Matrix Ii](binary_search/search_2d_matrix_ii.py), [Linked List Cycle](linked_list/linked_list_cycle.py) | Binary Search / Linked List |
 | Day 6 | [Merge Two Sorted Lists](linked_list/merge_two_sorted_lists.py), [Reverse Linked List](linked_list/reverse_linked_list.py) | Linked List |
-| Day 7 | [Implement Queue Using Stacks](stack_queue/implement_queue_using_stacks.py), [Valid Parentheses](stack_queue/valid_parentheses.py) | Stacks & Queue |
+| Day 7 | [Maximum Depth Binary Tree](trees/maximum_depth_binary_tree.py), [Same Tree](trees/same_tree.py) | Trees |
+| Day 8 | [Implement Queue Using Stacks](stack_queue/implement_queue_using_stacks.py), [Valid Parentheses](stack_queue/valid_parentheses.py) | Stacks & Queue |
 <!-- AUTO-GENERATED-TABLE-END -->
 
 ---
