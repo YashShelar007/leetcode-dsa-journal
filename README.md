@@ -18,6 +18,7 @@ This repository tracks my daily progress solving LeetCode problems. I aim to sol
 | Day 7 | [Maximum Depth Binary Tree](trees/maximum_depth_binary_tree.py), [Same Tree](trees/same_tree.py) | Trees |
 | Day 8 | [Implement Queue Using Stacks](stack_queue/implement_queue_using_stacks.py), [Valid Parentheses](stack_queue/valid_parentheses.py) | Stacks & Queue |
 | Day 9 | [Invert Binary Tree](trees/invert_binary_tree.py), [Symmetric Tree](trees/symmetric_tree.py) | Trees |
+| Day 10 | [Fibonacci](recursion_backtracking/fibonacci.py), [Subsets](recursion_backtracking/subsets.py) | Recursion Backtracking |
 <!-- AUTO-GENERATED-TABLE-END -->
 
 ---
