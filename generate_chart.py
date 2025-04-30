@@ -11,7 +11,7 @@ CATEGORY_TITLES = {
     "trees": "Trees",
     "graphs": "Graphs",
     "greedy": "Greedy",
-    "backtracking": "Backtracking",
+    "recursion_backtracking": "Backtracking",
 }
 
 def count_problems_per_category():
