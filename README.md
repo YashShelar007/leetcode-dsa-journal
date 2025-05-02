@@ -19,6 +19,7 @@ This repository tracks my daily progress solving LeetCode problems. I aim to sol
 | Day 8 | [Implement Queue Using Stacks](stack_queue/implement_queue_using_stacks.py), [Valid Parentheses](stack_queue/valid_parentheses.py) | Stacks & Queue |
 | Day 9 | [Invert Binary Tree](trees/invert_binary_tree.py), [Symmetric Tree](trees/symmetric_tree.py) | Trees |
 | Day 10 | [Fibonacci](recursion_backtracking/fibonacci.py), [Subsets](recursion_backtracking/subsets.py) | Recursion Backtracking |
+| Day 11 | [Jump Game](greedy/jump_game.py), [Merge Intervals](greedy/merge_intervals.py) | Greedy |
 <!-- AUTO-GENERATED-TABLE-END -->
 
 ---
