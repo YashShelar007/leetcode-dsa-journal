@@ -20,6 +20,7 @@ This repository tracks my daily progress solving LeetCode problems. I aim to sol
 | Day 9 | [Invert Binary Tree](trees/invert_binary_tree.py), [Symmetric Tree](trees/symmetric_tree.py) | Trees |
 | Day 10 | [Fibonacci](recursion_backtracking/fibonacci.py), [Subsets](recursion_backtracking/subsets.py) | Recursion Backtracking |
 | Day 11 | [Jump Game](greedy/jump_game.py), [Merge Intervals](greedy/merge_intervals.py) | Greedy |
+| Day 12 | [Climbing Stairs](dynamic_programming/climbing_stairs.py), [Letter Combinations](recursion_backtracking/letter_combinations.py) | Dynamic Programming / Recursion Backtracking |
 <!-- AUTO-GENERATED-TABLE-END -->
 
 ---
