@@ -12,6 +12,7 @@ CATEGORY_TITLES = {
     "graphs": "Graphs",
     "greedy": "Greedy",
     "recursion_backtracking": "Backtracking",
+    "dynamic_programming": "Dynamic Programming",
 }
 
 def count_problems_per_category():
